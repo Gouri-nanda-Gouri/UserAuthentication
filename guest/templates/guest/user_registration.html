@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+
+    <form method="post">
+        {% csrf_token %}
+        <table align="center" cellpadding="5" border="1">
+            <tr>
+                <th colspan="2">Registration</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="txt_name" required></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="txt_email" required></td>
+            </tr>
+            <tr>
+            <td>Password</td>
+            <td>
+                <input type="password" name="txt_password" id="password" required onkeyup="checkStrength()">
+            </td>
+        </tr>
+
+        <tr>
+            <td>Password Strength</td>
+            <td><span id="strength-text">Type password...</span></td>
+        </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit">Register</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+<script>
+function checkStrength() {
+    const password = document.getElementById("password").value;
+    const strengthText = document.getElementById("strength-text");
+
+    let strength = 0;
+
+    if (password.length >= 6) strength++;
+    if (password.match(/[A-Z]/)) strength++;
+    if (password.match(/[0-9]/)) strength++;
+    if (password.match(/[^A-Za-z0-9]/)) strength++;
+
+    if (strength === 0) {
+        strengthText.textContent = "Type password...";
+        strengthText.style.color = "black";
+    } 
+    else if (strength === 1) {
+        strengthText.textContent = "Very Weak";
+        strengthText.style.color = "red";
+    }
+    else if (strength === 2) {
+        strengthText.textContent = "Weak";
+        strengthText.style.color = "orange";
+    }
+    else if (strength === 3) {
+        strengthText.textContent = "Medium";
+        strengthText.style.color = "goldenrod";
+    }
+    else if (strength === 4) {
+        strengthText.textContent = "Strong";
+        strengthText.style.color = "green";
+    }
+}
+</script>
+
+</html>
